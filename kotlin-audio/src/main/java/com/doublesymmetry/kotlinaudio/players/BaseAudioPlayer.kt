@@ -249,7 +249,6 @@ abstract class BaseAudioPlayer internal constructor(
             }
 
             override fun onPlayFromSearch(query: String?, extras: Bundle?) {
-                Timber.tag("GVATest").d("playing before from query: %s", query)
                 super.onPlayFromSearch(query, extras)
                 Timber.tag("GVATest").d("playing from query: %s", query)
                 mediaSessionCallback.handlePlayFromSearch(query, extras)
