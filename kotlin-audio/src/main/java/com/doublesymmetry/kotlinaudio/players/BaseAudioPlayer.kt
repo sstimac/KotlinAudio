@@ -35,11 +35,10 @@ import com.doublesymmetry.kotlinaudio.models.PlaybackError
 import com.doublesymmetry.kotlinaudio.models.PlayerConfig
 import com.doublesymmetry.kotlinaudio.models.PlayerOptions
 import com.doublesymmetry.kotlinaudio.models.PositionChangedReason
-import com.doublesymmetry.kotlinaudio.models.WakeMode
 import com.doublesymmetry.kotlinaudio.notification.NotificationManager
 import com.doublesymmetry.kotlinaudio.players.components.PlayerCache
 import com.doublesymmetry.kotlinaudio.players.components.getAudioItemHolder
-import com.doublesymmetry.kotlinaudio.utils.isUriLocalFile
+import com.doublesymmetry.kotlinaudio.utils.isUriLocal
 import com.google.android.exoplayer2.C
 import com.google.android.exoplayer2.DefaultLoadControl
 import com.google.android.exoplayer2.DefaultLoadControl.Builder
@@ -225,13 +224,6 @@ abstract class BaseAudioPlayer internal constructor(
 
         exoPlayer = ExoPlayer.Builder(context)
             .setHandleAudioBecomingNoisy(playerConfig.handleAudioBecomingNoisy)
-            .setWakeMode(
-                when (playerConfig.wakeMode) {
-                    WakeMode.NONE -> C.WAKE_MODE_NONE
-                    WakeMode.LOCAL -> C.WAKE_MODE_LOCAL
-                    WakeMode.NETWORK -> C.WAKE_MODE_NETWORK
-                }
-            )
             .apply {
                 if (bufferConfig != null) setLoadControl(setupBuffer(bufferConfig))
             }
@@ -552,7 +544,7 @@ abstract class BaseAudioPlayer internal constructor(
                 raw.open(DataSpec(uri))
                 DataSource.Factory { raw }
             }
-            isUriLocalFile(uri) -> {
+            isUriLocal(uri) -> {
                 DefaultDataSourceFactory(context, userAgent)
             }
             else -> {

@@ -1,5 +1,7 @@
 package com.doublesymmetry.kotlinaudio.models
 
+import com.doublesymmetry.kotlinaudio.players.BaseAudioPlayer
+
 data class PlayerConfig(
     /**
      * Toggle whether or not a player action triggered from an outside source should be intercepted.
@@ -28,9 +30,4 @@ data class PlayerConfig(
      * The audio content type.
      */
     val audioContentType: AudioContentType = AudioContentType.MUSIC,
-
-    /**
-     * The audio usage.
-     */
-    val wakeMode: WakeMode = WakeMode.NONE,
 )
